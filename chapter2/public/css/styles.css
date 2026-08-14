@@ -1,0 +1,27 @@
+*/* Reset */
+*,
+*::before,
+*::after {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body{
+  padding: 30px;
+}
+
+.card{
+  border: 1px solid #aaa;
+  padding: 30px 15px;
+  max-width: 90%;
+  margin-bottom: 30px;
+}
+
+.error{
+  color: red;
+}
+
+.success{
+  color: green;
+}
