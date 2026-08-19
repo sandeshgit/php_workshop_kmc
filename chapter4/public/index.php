@@ -20,11 +20,13 @@ use App\Models\User;
 
 <?php
 
+  $user = User::findByEmail('test_445566@demo.com');
+  print_r($user);
 
-  $newUserId = User::create('test246', 'test246@demo.com', 'test245');
-  echo "<br>";
-  echo $newUserId;
-  echo "<br>";
+  // $newUserId = User::create('test246', 'test246@demo.com', 'test245');
+  // echo "<br>";
+  // echo $newUserId;
+  // echo "<br>";
 
   $db = Database::getInstance();
   $pdo = $db->getConnection();

@@ -1,3 +1,14 @@
+<?php
+
+require_once __DIR__ . '/../src/Core/Autoloader.php';
+
+use App\Controllers\AuthController;
+
+$auth = new AuthController();
+$userRegister = $auth->register();
+
+?>
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -19,6 +30,18 @@
   <main class="container">
     <section class="section">
       <div class="auth-card">
+
+        <?php 
+          if (!empty($userRegister['errors'])) {
+            echo "<div class='alert alert-error'>";
+            foreach ($userRegister['errors'] as $error) {
+              echo $error . "<br>";
+            }
+            echo "</div>";
+          }
+
+        ?>
+
         <h2 class="section__title">Register</h2>
         <form action="" method="post">
           <div class="form-group">

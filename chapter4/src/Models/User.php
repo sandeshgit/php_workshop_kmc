@@ -55,6 +55,21 @@ class User{
     return true;
   }
 
+  public static function findByEmail(string $email): ?array{
+    $pdo = Database::getInstance()->getConnection();
+    $stmt = $pdo->prepare("SELECT * FROM users WHERE email = :email");
+    $stmt->execute(['email' => trim(strtolower($email))]);
+    $result = $stmt->fetch();
+    return $result ?: null;
+  }
+
+  public static function findByUsername(string $username): ?array{
+    $pdo = Database::getInstance()->getConnection();
+    $stmt = $pdo->prepare("SELECT * FROM users WHERE username = :username");
+    $stmt->execute(['username' => trim(strtolower($username))]);
+    $result = $stmt->fetch();
+    return $result ?: null;
+  }
 
   public static function create(string $username, string $email, string $password): int|false{
     $pdo = Database::getInstance()->getConnection();
