@@ -81,8 +81,24 @@ class User{
     ]);
     
     return $result ? (int) $pdo->lastInsertId() : false;
-
   }
+
+  public static function findById(int $id): ?array{
+    $pdo = Database::getInstance()->getConnection();
+    $stmt = $pdo->prepare("SELECT * FROM users WHERE id = :id");
+    $stmt->execute(['id' => $id]);
+    $result = $stmt->fetch();
+    return $result ?: null;
+  }
+
+  public static function authenticate(string $email, string $password): ?array{
+    $user = self::findByEmail($email);
+    if ($user && password_verify($password, $user['password'])){
+      return $user;
+    }
+    return null;
+  }
+
 
   public function displayUser(): void{
     echo "<p>Username: $this->username</p>";
