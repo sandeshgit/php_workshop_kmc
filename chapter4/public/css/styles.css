@@ -385,6 +385,28 @@ body {
     font-weight: 600;
 }
 
+/* Posts */
+.post-card {
+    margin-bottom: 1.25rem;
+}
+
+.post-content {
+    color: var(--gray-800);
+    font-size: 0.95rem;
+    line-height: 1.7;
+    white-space: pre-wrap;
+    word-wrap: break-word;
+}
+
+.card__meta {
+    font-size: 0.8rem;
+    color: var(--gray-500);
+}
+
+.delete-form {
+    display: inline;
+}
+
 /* Utilities */
 .text-center {
     text-align: center;
