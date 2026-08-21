@@ -5,6 +5,7 @@ if (session_status() == PHP_SESSION_NONE) {
 
 require_once __DIR__ . '/../src/Core/Autoloader.php';
 
+use App\Models\Post;
 use App\Models\User;
 
 if (empty($_SESSION['user_id'])) {
@@ -15,6 +16,11 @@ if (empty($_SESSION['user_id'])) {
 $userId = $_SESSION['user_id'];
 $user = User::findById((int) $userId);
 $username = $user['username'];
+
+$userPosts = Post::findByUserId($userId);
+// print_r($userPosts);
+$allPosts = Post::findAll();
+// print_r($allPosts);
 
 ?>
 
@@ -59,7 +65,7 @@ $username = $user['username'];
         <h2 class="section__title">Create a post!</h2>
         <div class="card">
           <div class="card__body">
-            <form action="" method="post">
+            <form action="create_post.php" method="post">
               <div class="form-group">
                 <textarea name="content" id="" placeholder="Whats on your mind, <?= $username ?> ? "></textarea>
               </div>
@@ -68,6 +74,26 @@ $username = $user['username'];
           </div>
         </div>
       </section>
+
+
+      <section class="section">
+        <h2 class="section__title">Your Posts</h2>
+        <?php foreach ($userPosts as $post): ?>
+          <div class="card post-card">
+            <div class="card__header">
+              <span class="card__avatar"> <?= strtoupper($post['username'][0]) ?> </span>
+              <div>
+                <h3 class="card__username">@<?= $post['username'] ?></h3>
+                <span class="card__meta"><?= $post['created_at'] ?></span>
+              </div>
+            </div>
+            <div class="card__body">
+              <p class="post-content"><?= $post['content'] ?></p>
+            </div>
+          </div>
+        <?php endforeach; ?>
+      </section>
+
 
   </main>
 </body>

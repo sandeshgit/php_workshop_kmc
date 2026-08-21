@@ -1,23 +1,25 @@
 <?php
-if (session_status() == PHP_SESSION_NONE) {
+if (session_status() == PHP_SESSION_NONE){
   session_start();
 }
 
-require_once __DIR__ . '/../src/Core/Autoloader.php';
-
-use App\Models\Post;
-use App\Models\User;
-
-if (empty($_SESSION['user_id'])) {
+if (empty($_SESSION['user_id'])){
   header("Location: /chapter4/public/login.php");
   exit;
 }
 
+require_once __DIR__ . '/../src/Core/Autoloader.php';
+
+use App\Models\User;
+use App\Controllers\PostController;
+
 $userId = $_SESSION['user_id'];
-$user = User::findById((int) $userId);
+$user = User::findById($userId);
 $username = $user['username'];
 
-$allPosts = Post::findAll();
+$postController = new PostController();
+$result = $postController->create();
+
 
 ?>
 
@@ -40,12 +42,11 @@ $allPosts = Post::findAll();
     </div>
   </header>
   <main class="container">
-
       <section class="section">
         <h2 class="section__title">Create a post!</h2>
         <div class="card">
           <div class="card__body">
-            <form action="create_post.php" method="post">
+            <form action="" method="post">
               <div class="form-group">
                 <textarea name="content" id="" placeholder="Whats on your mind, <?= $username ?> ? "></textarea>
               </div>
@@ -54,26 +55,6 @@ $allPosts = Post::findAll();
           </div>
         </div>
       </section>
-
-
-      <section class="section">
-        <h2 class="section__title">Your Posts</h2>
-        <?php foreach ($allPosts as $post): ?>
-          <div class="card post-card">
-            <div class="card__header">
-              <span class="card__avatar"> <?= strtoupper($post['username'][0]) ?> </span>
-              <div>
-                <h3 class="card__username">@<?= $post['username'] ?></h3>
-                <span class="card__meta"><?= $post['created_at'] ?></span>
-              </div>
-            </div>
-            <div class="card__body">
-              <p class="post-content"><?= $post['content'] ?></p>
-            </div>
-          </div>
-        <?php endforeach; ?>
-      </section>
-
 
   </main>
 </body>

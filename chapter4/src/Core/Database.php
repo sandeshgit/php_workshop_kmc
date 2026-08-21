@@ -12,9 +12,12 @@ class Database{
   private function __construct()
   {
     $dsn = "mysql:host=db;port=3306;dbname=php_workshop;charset=utf8mb4";
+    $options = [
+      PDO::ATTR_DEFAULT_FETCH_MODE => PDO::FETCH_ASSOC
+    ];
 
     try {
-      $this->connection = new PDO($dsn, 'root', 'root');
+      $this->connection = new PDO($dsn, 'root', 'root', $options);
     } catch (PDOException $e) {
       die("Database connection failed: " . $e->getMessage());
     }
