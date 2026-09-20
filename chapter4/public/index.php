@@ -42,7 +42,7 @@ $allPosts = Post::findAll();
   <main class="container">
 
       <section class="section">
-        <h2 class="section__title">Create a post!</h2>
+        <h2 class="section__title">Create a new post!</h2>
         <div class="card">
           <div class="card__body">
             <form action="create_post.php" method="post">
